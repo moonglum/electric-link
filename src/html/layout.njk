@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>{% block title %}Electric Links{% endblock %}</title>
+	</head>
+
+	<body>
+		<nav>
+			<ul>
+				<li><a href="/" is="electric-link">Home</a>
+				<li><a href="/other.html" is="electric-link">Other</a>
+				<li><a href="/no.html" is="electric-link">Missing</a>
+			</ul>
+		</nav>
+		<form>
+			<label for="search">Suche:</label>
+			<input type="text" id="search">
+		</form>
+		<section id="main">
+			  {% block main %}{% endblock %}
+		</section>
+	</body>
+
+	<script src="{{ "dist/js/app.js" | assetURL }}"></script>
+</html>

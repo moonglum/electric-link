@@ -1,0 +1,21 @@
+{
+	"name": "electric-link",
+	"version": "0.0.1",
+	"description": "It's like a Turbolink, but a little less wasteful",
+	"main": "index.js",
+	"scripts": {
+		"test": "eslint --cache src/js/app.js && echo ✓",
+		"watch": "faucet --watch --serve 8080"
+	},
+	"author": "Lucas Dohmen <lucas@dohmen.io> (https://lucas.dohmen.io/)",
+	"dependencies": {
+		"faucet-pipeline-core": "faucet-pipeline/faucet-pipeline-core#35c3",
+		"faucet-pipeline-static": "^1.0.0",
+		"faucet-pipeline-nunjucks": "faucet-pipeline/faucet-pipeline-nunjucks"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"donny": "^0.1.0",
+		"eslint-config-fnd": "^1.6.0"
+	}
+}
