@@ -6,23 +6,10 @@ class ElectricLink extends HTMLAnchorElement {
 	}
 
 	follow(ev) {
-		// TODO: configurable timeout
-		// TODO: request header?
-		// TODO: fire events when things happen
-		fetch(this.href).then(response => {
-			// TODO: probably support for redirect
-			if(!response.ok) {
-				throw new Error(`HTTP error, status = ${response.status}`);
-			}
-			return response.text();
-		}).then(html => {
-			let doc = parseHTMLFromString(html);
-			// TODO: make selector configurable
-			replaceSelector(doc, "#main");
-			replaceSelector(doc, "title");
-			history.pushState({}, "", this.href);
-		}).catch(_ => {
-			window.location.replace(this.href);
+		visit(this.href).then(_ => {
+			history.pushState({
+				href: this.href
+			}, null, this.href);
 		});
 		ev.preventDefault();
 	}
@@ -34,6 +21,30 @@ class ElectricLink extends HTMLAnchorElement {
 
 if(window.fetch && window.history && window.DOMParser) {
 	customElements.define("electric-link", ElectricLink, { extends: "a" });
+
+	window.addEventListener("popstate", function(ev) {
+		visit(ev.state.href);
+	});
+}
+
+function visit(url) {
+	// TODO: configurable timeout
+	// TODO: request header?
+	// TODO: fire events when things happen
+	return fetch(url).then(response => {
+		// TODO: probably support for redirect
+		if(!response.ok) {
+			throw new Error(`HTTP error, status = ${response.status}`);
+		}
+		return response.text();
+	}).then(html => {
+		let doc = parseHTMLFromString(html);
+		// TODO: make selector configurable
+		replaceSelector(doc, "#main");
+		replaceSelector(doc, "title");
+	}).catch(_ => {
+		window.location.replace(url);
+	});
 }
 
 function parseHTMLFromString(html) {
